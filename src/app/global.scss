@@ -1,0 +1,95 @@
+@use "/src/app/assets/styles/color.scss" as color;
+// @use "/src/assets/styles/utilities.scss" as *; ;
+@use "/src/app/assets/styles/fontSizes.scss" as fontSizes;
+@use "/src/app/assets/styles/resolutions.scss" as resolutions;
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@100;200;300;400;500;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  @each $color, $types in color.$colors {
+    @each $type, $value in $types {
+      --clr-#{$color}-#{""+$type}: #{$value};
+    }
+  }
+
+  @each $size, $value in fontSizes.$sizes {
+    --#{$size}-font-size: #{$value};
+  }
+  @each $size, $value in resolutions.$width {
+    --resolution-width-#{$size}: #{$value};
+  }
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  //outline: 1px solid limegreen !important;
+}
+
+html {
+  margin: 0;
+}
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--clr-normal-white-high);
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
