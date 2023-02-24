@@ -1,8 +1,13 @@
 $colors: (
   normal: (
     primary: hsl(202, 49%, 49%),
+    primaryHover: hsl(202, 30%, 44%),
     white: hsl(0, 0%, 100%),
     background: hsl(212, 100%, 97%),
     red: hsl(3, 65%, 49%),
+    grey: hsl(0, 0%, 25%),
+    greyLow: hsl(0, 0%, 59%),
+    whiteGrey: hsl(0, 0%, 96%),
+    whiteGreyHover: hsl(0, 0%, 84%),
   ),
 );

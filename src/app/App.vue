@@ -1,10 +1,12 @@
 
 <template>
-  <Login />
+  <!-- <Login /> -->
+  <Home />
 </template>
 
 <script setup lang="ts">
 import Login from "./view/Login.vue";
+import Home from "./view/Home.vue";
 </script>
 
 

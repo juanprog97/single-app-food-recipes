@@ -1,9 +1,13 @@
 @use "/src/app/assets/styles/color.scss" as color;
-// @use "/src/assets/styles/utilities.scss" as *; ;
+@use "/src/app/assets/styles/utilities.scss" as *;
 @use "/src/app/assets/styles/fontSizes.scss" as fontSizes;
 @use "/src/app/assets/styles/resolutions.scss" as resolutions;
 @import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@100;200;300;400;500;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
+@include noSelectedText;
+@include ButtonPrimary;
+@include ButtonSecondary;
+@include InputStyle;
 :root {
   @each $color, $types in color.$colors {
     @each $type, $value in $types {
@@ -54,7 +58,9 @@ ol[role="list"] {
 html:focus-within {
   scroll-behavior: smooth;
 }
-
+a {
+  cursor: pointer;
+}
 /* Set core body defaults */
 body {
   min-height: 100vh;

@@ -3,29 +3,34 @@
     <div class="Container_Logo_Side">
       <div class="Container_Img_logo">
         <img id="LogoPage" src="logo.png" />
-        <h1>Food world</h1>
+        <h1 class="no-select-text">Food world</h1>
       </div>
-      <p class="Description_Logo">
+      <p class="Description_Logo no-select-text">
         The best food recipe site, where you can find the recipes and keep the
         ones you like the most.
       </p>
     </div>
     <div class="Container_Login">
-      <h2 class="LabelForm">Log in</h2>
+      <h2 class="LabelForm no-select-text">Log in</h2>
       <div class="Form_Container">
         <div class="Field_input">
           <label class="Label_input" for="emailInput">Email</label>
-          <input id="emailInput" type="text" />
+          <input class="input-style" id="emailInput" type="text" />
           <!-- <p class="Error_input">Error</p> -->
         </div>
         <div class="Field_input">
           <label class="Label_input" for="passwordInput">Password</label>
-          <input id="emailInput" type="text" />
+          <input
+            id="passwordInput"
+            class="input-style"
+            type="password"
+            placeholder="2sadas"
+          />
           <!-- <p class="Error_input">Error</p> -->
         </div>
       </div>
       <a id="Label_ForgetPassword">Forget password?</a>
-      <button>Login</button>
+      <button class="primary">Login</button>
     </div>
   </div>
 </template>
@@ -47,6 +52,7 @@ export default defineComponent({
   height: 100vh;
   font-family: Roboto;
   grid-template-columns: 600px auto;
+
   .Container_Logo_Side {
     grid-column: 1/2;
     display: flex;
@@ -54,6 +60,7 @@ export default defineComponent({
     gap: 3em;
     justify-content: center;
     background-color: var(--clr-normal-primary);
+
     .Container_Img_logo {
       display: flex;
       flex-direction: column;
@@ -72,11 +79,12 @@ export default defineComponent({
       font-size: var(--h3-font-size);
       font-weight: 500;
       line-height: 1.2em;
-      text-align: justify;
+
       margin: 0em 2em;
     }
   }
   .Container_Login {
+    padding: 0em 2em;
     display: flex;
     flex-direction: column;
     grid-column: 2/2;
