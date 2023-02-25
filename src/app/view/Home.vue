@@ -1,16 +1,33 @@
 <template>
   <div class="Container_Home">
     <div class="Container_SideBar">
-      <div>
-        <p>User account</p>
-        <p>Example123</p>
+      <div class="User_Details">
+        <div
+          class="Container_img_profile"
+          v-bind:data-state="isLoadingImage ? 'show' : 'hide'"
+        >
+          <img
+            v-show="isloadImage"
+            v-bind:src="imgAvatarSrc"
+            v-bind:onLoad="loadedImage"
+          />
+        </div>
+
+        <p class="details_user">User Account</p>
+        <p class="username_logged no-select-text">
+          {{ userLoginAction.user.username }}
+        </p>
       </div>
       <div class="Container_Routes">
-        <router-link to="/">Food Catalog</router-link>
-        <router-link to="/">Food Favorite</router-link>
+        <router-link class="Option_Link" :to="{ name: 'Catalog' }"
+          >Food Catalog</router-link
+        >
+        <router-link class="Option_Link" :to="{ name: 'Favorites' }"
+          >Food Favorite</router-link
+        >
       </div>
 
-      <button id="Logout_Button" class="secondary">
+      <button id="Logout_Button" class="secondary" v-bind:onClick="logout">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -44,10 +61,41 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import { getModule } from "vuex-module-decorators";
+import { key } from "../store";
+import { UserStore } from "../store/authUser";
 
 export default defineComponent({
   setup() {
-    return {};
+    const store = useStore(key);
+    const userLoginAction = getModule(UserStore, store);
+
+    return { userLoginAction };
+  },
+  mounted() {
+    if (this.imgAvatarSrc == "") {
+      this.isloadImage = false;
+      this.isLoadingImage = true;
+      this.imgAvatarSrc = "avatarDefault.webp";
+    }
+  },
+  methods: {
+    async logout() {
+      await this.userLoginAction.logoutExit();
+      this.$router.push({ name: "Login" });
+    },
+    loadedImage() {
+      this.isloadImage = true;
+      this.isLoadingImage = false;
+    },
+  },
+  data() {
+    return {
+      imgAvatarSrc: "",
+      isloadImage: false,
+      isLoadingImage: false,
+    };
   },
 });
 </script>
@@ -71,7 +119,70 @@ export default defineComponent({
     background-color: var(--clr-normal-background);
     border: 10px solid var(--clr-normal-white);
     box-shadow: 0px 0px 10px 0px rgba(black, 0.2);
+    .User_Details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
+      text-align: center;
+      margin-bottom: 1.02em;
+      .Container_img_profile {
+        display: block;
+        min-width: 100px;
+        min-height: 100px;
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0px 0px 0px 7px var(--clr-normal-white);
+        &[data-state="show"] {
+          &::after {
+            display: block;
+            content: "";
+            position: absolute;
+            inset: 50%;
+            transform: translate(-50%, -50%);
 
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+            border-right: 10px solid var(--clr-normal-white);
+            border-left: 10px solid var(--clr-normal-white);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid var(--clr-normal-white);
+            animation: moveWheel 0.8s infinite linear;
+          }
+          @keyframes moveWheel {
+            0% {
+              transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+              transform: translate(-50%, -50%) rotate(360deg);
+            }
+          }
+        }
+        &[data-state="hide"] {
+          &::after {
+            display: none;
+          }
+        }
+      }
+      .details_user {
+        font-weight: 400;
+        color: var(--clr-normal-greyLow);
+      }
+      .username_logged {
+        color: var(--clr-normal-grey);
+        font-weight: 700;
+      }
+    }
+    .Container_Routes {
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      flex: auto;
+      gap: 1em;
+    }
     #Logout_Button {
       display: flex;
       align-items: center;

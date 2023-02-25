@@ -15,25 +15,24 @@ export interface UserState {
 export class UserStore extends VuexModule implements UserState {
   public user: User = localStorage.getItem(LocalStorageKeys.AUTH_STATE)
     ? JSON.parse(localStorage.getItem(LocalStorageKeys.AUTH_STATE) as string)
-    : "";
+    : {};
 
   private authenticate: Authenticate = new Authenticate(new AuthLocalStorage());
   private logout: Logout = new Logout(new AuthLocalStorage());
 
   @Mutation
-  setUser(user: string) {
-    this.user = { user: user, state: true };
+  setUser(user: User) {
+    this.user = { email: user.email, username: user.username, state: true };
   }
+  @Mutation
   clearUser() {
     this.user = {};
   }
   @Action({ rawError: true })
   async login(user: User) {
-    await this.authenticate.execute(user);
+    const userDetails = await this.authenticate.execute(user);
 
-    this.setUser(
-      user.email ? user.email.substring(0, user.email?.indexOf("@")) : ""
-    );
+    this.setUser(userDetails);
   }
 
   @Action({ rawError: true })

@@ -27,7 +27,7 @@
             placeholder="example@organization.com"
             type="text"
           />
-          <ErrorMessage name="email" />
+          <ErrorMessage id="Error_Message_Field" name="email" />
         </div>
 
         <div class="Field_input">
@@ -39,13 +39,14 @@
             class="input-style"
             type="password"
           />
-          <ErrorMessage name="password" />
+          <ErrorMessage id="Error_Message_Field" name="password" />
         </div>
 
         <a id="Label_ForgetPassword">Forget password?</a>
 
         <button type="submit" class="primary">Login</button>
       </Form>
+      <p v-if="!!errorInfo" id="Error_Message_Field">{{ errorInfo }}</p>
     </div>
   </div>
 </template>
@@ -82,14 +83,21 @@ export default defineComponent({
       schema: {},
       emailInput: "",
       passwordInput: "",
+      errorInfo: "",
     };
   },
   methods: {
     async handleSubmit() {
-      this.userLoginAction.login({
-        email: this.emailInput,
-        password: this.passwordInput,
-      });
+      this.errorInfo = "";
+      try {
+        await this.userLoginAction.login({
+          email: this.emailInput,
+          password: this.passwordInput,
+        });
+        this.$router.push({ name: "Dash" });
+      } catch (error: any) {
+        this.errorInfo = error;
+      }
     },
   },
 });
@@ -157,7 +165,7 @@ export default defineComponent({
           font-weight: 500;
           margin-bottom: 0.2em;
         }
-        .Error_input {
+        #Error_Message_Field {
           font-size: var(--small-font-size);
           color: var(--clr-normal-red);
         }

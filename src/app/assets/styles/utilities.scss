@@ -40,7 +40,9 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease-in;
-
+    svg {
+      pointer-events: none;
+    }
     &:hover {
       transition: all 0.2s ease-out;
       background-color: var(--clr-normal-primary);
@@ -56,7 +58,7 @@
     outline: none;
     border: 2px solid var(--clr-normal-whiteGrey);
     &:focus {
-      border: 2px solid var(--clr-normal-whiteGreyHover)
+      border: 2px solid var(--clr-normal-whiteGreyHover);
     }
   }
 }
