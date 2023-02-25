@@ -1,6 +1,5 @@
 export enum LocalStorageKeys {
-  AUTH_STATE = "authState",
-  USER = "user",
+  AUTH_STATE = "auth",
 }
 
 export const saveInLocalStorage = (key: string, value: string) => {

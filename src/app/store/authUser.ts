@@ -3,10 +3,9 @@ import { Authenticate } from "@/usecases/interactor/authenticate";
 import { ILogout, Logout } from "@/usecases/interactor/Logout";
 import { User } from "../../domain/entity/index";
 import AuthLocalStorage from "@/data/MemoryRepository/authLocalStorage";
-import AuthExampleConsole from "../../data/MemoryRepository/authExampleConsole";
-
+import { LocalStorageKeys } from "../utils/managerLocalStorage";
 export interface UserState {
-  user: string;
+  user: User | null;
 }
 
 @Module({
@@ -14,26 +13,30 @@ export interface UserState {
   namespaced: true,
 })
 export class UserStore extends VuexModule implements UserState {
-  public user: string = "";
+  public user: User = localStorage.getItem(LocalStorageKeys.AUTH_STATE)
+    ? JSON.parse(localStorage.getItem(LocalStorageKeys.AUTH_STATE) as string)
+    : "";
 
   private authenticate: Authenticate = new Authenticate(new AuthLocalStorage());
   private logout: Logout = new Logout(new AuthLocalStorage());
-  private authenticate2: Authenticate = new Authenticate(
-    new AuthExampleConsole()
-  );
+
   @Mutation
   setUser(user: string) {
-    this.user = user;
+    this.user = { user: user, state: true };
   }
   clearUser() {
-    this.user = "";
+    this.user = {};
   }
   @Action({ rawError: true })
   async login(user: User) {
     await this.authenticate.execute(user);
-    await this.authenticate2.execute(user);
-    this.setUser(user.email.substring(0, user.email.indexOf("@")));
+
+    this.setUser(
+      user.email ? user.email.substring(0, user.email?.indexOf("@")) : ""
+    );
   }
+
+  @Action({ rawError: true })
   async logoutExit() {
     await this.logout.execute();
     this.clearUser();

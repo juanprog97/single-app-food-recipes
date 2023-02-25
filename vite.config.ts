@@ -10,4 +10,19 @@ export default defineConfig({
     EnvironmentPlugin("all", { prefix: "VUE_APP_" }),
     tsconfigPaths(),
   ],
+  build: {
+    rollupOptions: {
+      // https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          home: ["./src/app/view/Home"],
+          "option-pages": [
+            "./src/app/view/home/Favorites",
+            "./src/app/view/home/Details",
+            "./src/app/view/home/Catalog",
+          ],
+        },
+      },
+    },
+  },
 });

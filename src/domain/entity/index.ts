@@ -1,4 +1,6 @@
 export interface User {
-  email: string;
-  password: string;
+  user?: string;
+  state?: boolean;
+  email?: string;
+  password?: string;
 }

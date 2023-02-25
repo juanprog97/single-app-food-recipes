@@ -24,7 +24,7 @@
         <p>Logout</p>
       </button>
     </div>
-    <div class="Container_Content">Content</div>
+    <div class="Container_Content"><router-view></router-view></div>
     <button id="AppDraw_button" class="primary">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
           d="M200 856h56l345-345-56-56-345 345v56Zm572-403L602 285l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829 396l-57 57Zm-58 59L290 936H120V766l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
         />
       </svg>
-      <p>Create Shape</p>
+      <p id="textShape">Create Shape</p>
     </button>
   </div>
 </template>
@@ -93,11 +93,16 @@ export default defineComponent({
 }
 #AppDraw_button {
   position: fixed;
-  left: 95%;
-  transform: translate(50%);
+  top: 92%;
+  right: calc(5% - 4vw);
+  width: 7em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.8em;
+  font-size: 0.7em;
+  p#textShape {
+    white-space: nowrap;
+    width: fit-content;
+  }
 }
 </style>
