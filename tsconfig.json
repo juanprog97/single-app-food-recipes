@@ -6,18 +6,21 @@
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
+    "types": ["reflect-metadata"],
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "experimentalDecorators": true,
+     "allowJs": true,
+     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
   },
-  "baseUrl": ".",
-  "paths": {
-    "@/*": [".src/*"],
   
-  },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
 
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -12,35 +12,85 @@
     </div>
     <div class="Container_Login">
       <h2 class="LabelForm no-select-text">Log in</h2>
-      <div class="Form_Container">
+      <Form
+        class="Form_Container"
+        :validation-schema="schema"
+        @submit="handleSubmit"
+      >
         <div class="Field_input">
           <label class="Label_input" for="emailInput">Email</label>
-          <input class="input-style" id="emailInput" type="text" />
-          <!-- <p class="Error_input">Error</p> -->
+          <Field
+            name="email"
+            v-model="emailInput"
+            class="input-style"
+            id="emailInput"
+            placeholder="example@organization.com"
+            type="text"
+          />
+          <ErrorMessage name="email" />
         </div>
+
         <div class="Field_input">
           <label class="Label_input" for="passwordInput">Password</label>
-          <input
+          <Field
+            name="password"
+            v-model="passwordInput"
             id="passwordInput"
             class="input-style"
             type="password"
-            placeholder="2sadas"
           />
-          <!-- <p class="Error_input">Error</p> -->
+          <ErrorMessage name="password" />
         </div>
-      </div>
-      <a id="Label_ForgetPassword">Forget password?</a>
-      <button class="primary">Login</button>
+
+        <a id="Label_ForgetPassword">Forget password?</a>
+
+        <button type="submit" class="primary">Login</button>
+      </Form>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script  lang="ts">
 import { defineComponent } from "vue";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
+import { useStore } from "vuex";
+import { key } from "../store";
+import { getModule } from "vuex-module-decorators";
+import { UserStore } from "../store/authUser";
 
 export default defineComponent({
   setup() {
-    return {};
+    const store = useStore(key);
+    const userLoginAction = getModule(UserStore, store);
+    return { userLoginAction };
+  },
+
+  mounted() {
+    this.schema = yup.object({
+      email: yup.string().required().email(),
+      password: yup.string().required().min(8),
+    });
+  },
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
+  data() {
+    return {
+      schema: {},
+      emailInput: "",
+      passwordInput: "",
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      this.userLoginAction.login({
+        email: this.emailInput,
+        password: this.passwordInput,
+      });
+    },
   },
 });
 </script>

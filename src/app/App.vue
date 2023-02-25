@@ -1,7 +1,7 @@
 
 <template>
-  <!-- <Login /> -->
-  <Home />
+  <Login />
+  <!-- <Home /> -->
 </template>
 
 <script setup lang="ts">
