@@ -19,10 +19,16 @@
         </p>
       </div>
       <div class="Container_Routes">
-        <router-link class="Option_Link" :to="{ name: 'Catalog' }"
+        <router-link
+          class="Option_Link"
+          v-bind:data-activeItem="$route.name === 'Catalog' ? 'true' : null"
+          :to="{ name: 'Catalog' }"
           >Food Catalog</router-link
         >
-        <router-link class="Option_Link" :to="{ name: 'Favorites' }"
+        <router-link
+          class="Option_Link"
+          v-bind:data-activeItem="$route.name === 'Favorites' ? 'true' : null"
+          :to="{ name: 'Favorites' }"
           >Food Favorite</router-link
         >
       </div>
@@ -65,6 +71,7 @@ import { useStore } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import { key } from "../store";
 import { UserStore } from "../store/authUser";
+import imgUrl from "../assets/images/avatarDefault.webp";
 
 export default defineComponent({
   setup() {
@@ -77,7 +84,7 @@ export default defineComponent({
     if (this.imgAvatarSrc == "") {
       this.isloadImage = false;
       this.isLoadingImage = true;
-      this.imgAvatarSrc = "avatarDefault.webp";
+      this.imgAvatarSrc = imgUrl;
     }
   },
   methods: {
@@ -174,6 +181,7 @@ export default defineComponent({
       .username_logged {
         color: var(--clr-normal-grey);
         font-weight: 700;
+        font-size: 1.3em;
       }
     }
     .Container_Routes {
@@ -182,6 +190,29 @@ export default defineComponent({
       flex-direction: column;
       flex: auto;
       gap: 1em;
+      .Option_Link {
+        position: relative;
+        font-weight: 500;
+        font-size: 1.1em;
+        color: var(--clr-normal-greyLow);
+        transition: font-weight 0.2s ease-out;
+        &[data-activeItem="true"] {
+          transition: all 0.2s ease-in;
+          font-weight: bold;
+          color: var(--clr-normal-black);
+          &::after {
+            display: block;
+            position: absolute;
+            content: "";
+            left: 110%;
+            top: 25%;
+            border-radius: 100%;
+            width: 17px;
+            height: 17px;
+            background-color: var(--clr-normal-primary);
+          }
+        }
+      }
     }
     #Logout_Button {
       display: flex;

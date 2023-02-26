@@ -7,7 +7,7 @@ import EnvironmentPlugin from "vite-plugin-environment";
 export default defineConfig({
   plugins: [
     vue(),
-    EnvironmentPlugin("all", { prefix: "VUE_APP_" }),
+    EnvironmentPlugin("all", { prefix: "VUE_APP_", loadEnvFiles: false }),
     tsconfigPaths(),
   ],
   build: {

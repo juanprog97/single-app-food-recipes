@@ -3,6 +3,7 @@ import Login from "@/app/view/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const Home = () => import("../view/Home.vue");
+const Dashboard = () => import("../view/Dashboard.vue");
 
 const Favorites = () => import("../view/home/Favorites.vue");
 
@@ -19,22 +20,31 @@ const routes = [
   {
     path: "/dash",
     name: "Dash",
-    component: Home,
+    redirect: { name: "Home" },
+    component: Dashboard,
     children: [
+      {
+        path: "home",
+        name: "Home",
+        component: Home,
+        redirect: { name: "Catalog" },
+        children: [
+          {
+            path: "favorites",
+            name: "Favorites",
+            component: Favorites,
+          },
+          {
+            path: "",
+            name: "Catalog",
+            component: Catalog,
+          },
+        ],
+      },
       {
         path: "details/:id",
         name: "Details",
         component: Details,
-      },
-      {
-        path: "favorites",
-        name: "Favorites",
-        component: Favorites,
-      },
-      {
-        path: "",
-        name: "Catalog",
-        component: Catalog,
       },
     ],
   },

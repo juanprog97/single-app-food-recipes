@@ -6,7 +6,7 @@
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
-    "types": ["reflect-metadata"],
+    "types": ["node"],
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
