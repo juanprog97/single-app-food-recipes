@@ -1,5 +1,5 @@
 import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
-import { GetListAllFood } from "@/usecases/interactor/getListAllFood";
+import { SearchFood } from "@/usecases/interactor/searchFood";
 
 import { FoodRecipe } from "../../domain/entity/index";
 import foodRepository from "@/data/FoodRepository/foodRepository";
@@ -18,9 +18,7 @@ export class FoodStore extends VuexModule implements FoodState {
   listAllFood: FoodRecipe[] = [];
   searchResultFood: FoodRecipe[] = [];
   listFavoriteFood: FoodRecipe[] = [];
-  private getListAllFood: GetListAllFood = new GetListAllFood(
-    new foodRepository()
-  );
+  private searchFoodRecipe: SearchFood = new SearchFood(new foodRepository());
 
   @Mutation
   clearSearch() {
@@ -28,7 +26,7 @@ export class FoodStore extends VuexModule implements FoodState {
   }
 
   @Action({ rawError: true })
-  async getAllFoodRecipes() {
-    const listAllFood = await this.getListAllFood.execute();
+  async searchFoodRecipes(value: string) {
+    // const resultsSearchFoodRecipe = await this.searchFoodRecipe.execute(value);
   }
 }

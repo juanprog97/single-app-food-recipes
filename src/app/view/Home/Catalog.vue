@@ -1,21 +1,26 @@
 <template>
   <div class="ContainerListMeals">
     <h2 class="TitleListMeal">Food Recipe List</h2>
-    <input
-      id="Input_Search_Food"
-      class="input-style"
-      type="text"
-      placeholder="Search your recipe"
-    />
+    <InputTypeahead id="Input_Search_Food" @confirmSearch="searchFood" />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import InputTypeahead from "../../components/InputSearchTypeahead/InputTypeahead.vue";
+export default defineComponent({
+  components: {
+    InputTypeahead,
+  },
+  methods: {
+    searchFood(value: string) {
+      console.log(value);
+    },
+  },
   setup() {
     return {};
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +44,6 @@ export default {
     font-weight: bold;
   }
   #Input_Search_Food {
-    width: 22em;
     justify-self: center;
   }
 }

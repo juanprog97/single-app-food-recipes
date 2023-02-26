@@ -5,17 +5,17 @@ export interface User {
   password?: string;
 }
 
-interface Ingredient {
+export interface Ingredient {
   name: string;
-  quantity: number;
+  description: string;
 }
 
 export interface FoodRecipe {
   id: string;
   image: string;
   name: string;
-  phrase: string;
-  instructions: string[];
+  nutrition: string[];
+  instructions?: string[];
   ingredient: Ingredient[];
   description: string;
 }

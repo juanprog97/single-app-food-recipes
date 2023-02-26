@@ -15,7 +15,7 @@ export default {
     return { foodActions };
   },
   async created() {
-    await this.foodActions.getAllFoodRecipes();
+    // await this.foodActions.getAllFoodRecipes();
   },
 };
 </script>
