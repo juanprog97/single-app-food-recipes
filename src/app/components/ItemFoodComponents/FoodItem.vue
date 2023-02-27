@@ -59,6 +59,7 @@ export default defineComponent({
   setup() {
     return {};
   },
+  props: ["dataFood"],
 });
 </script>
 

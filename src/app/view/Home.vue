@@ -47,7 +47,13 @@
         <p>Logout</p>
       </button>
     </div>
-    <div class="Container_Content"><router-view></router-view></div>
+    <div class="Container_Content">
+      <router-view v-slot="{ Component }">
+        <transition name="moveUp" mode="out-in">
+          <component :is="Component" :key="$route.path"></component>
+        </transition>
+      </router-view>
+    </div>
     <button id="AppDraw_button" class="primary">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -108,6 +114,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.moveUp-enter-active {
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.moveUp-leave-active {
+  animation: moveUp 0.3s ease-in;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
 .Container_Home {
   display: grid;
   grid-template-columns: 200px auto;

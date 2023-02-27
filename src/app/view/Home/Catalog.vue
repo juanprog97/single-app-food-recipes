@@ -2,9 +2,42 @@
   <div class="ContainerListMeals">
     <h2 class="TitleListMeal">Food Recipe List</h2>
     <InputTypeahead id="Input_Search_Food" @confirmSearch="searchFood" />
-    <div class="ListFoodItem">
-      <ListFood />
-    </div>
+    <ListFood
+      v-bind:ListData="[
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+      ]"
+      v-bind:maxNumElem="20"
+    />
   </div>
 </template>
 
@@ -50,13 +83,6 @@ export default defineComponent({
   }
   #Input_Search_Food {
     justify-self: center;
-  }
-  .ListFoodItem {
-    padding: 1em;
-    height: auto;
-    width: 100%;
-    max-height: 80%;
-    overflow-y: auto;
   }
 }
 </style>
