@@ -2,15 +2,20 @@
   <div class="ContainerListMeals">
     <h2 class="TitleListMeal">Food Recipe List</h2>
     <InputTypeahead id="Input_Search_Food" @confirmSearch="searchFood" />
+    <div class="ListFoodItem">
+      <ListFood />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import InputTypeahead from "../../components/InputSearchTypeahead/InputTypeahead.vue";
+import ListFood from "@/app/components/ItemFoodComponents/ListFood.vue";
 export default defineComponent({
   components: {
     InputTypeahead,
+    ListFood,
   },
   methods: {
     searchFood(value: string) {
@@ -45,6 +50,13 @@ export default defineComponent({
   }
   #Input_Search_Food {
     justify-self: center;
+  }
+  .ListFoodItem {
+    padding: 1em;
+    height: auto;
+    width: 100%;
+    max-height: 80%;
+    overflow-y: auto;
   }
 }
 </style>
