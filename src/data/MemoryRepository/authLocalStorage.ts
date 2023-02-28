@@ -1,6 +1,6 @@
 import { User } from "@/domain/entity";
 
-import { clearLocalStorage } from "../../app/utils/managerLocalStorage";
+import { RemoveLocalStorage } from "../../app/utils/managerLocalStorage";
 import {
   saveInLocalStorage,
   LocalStorageKeys,
@@ -23,7 +23,7 @@ export default class AuthLocalStorage implements IAuthRepository {
     return Promise.resolve(value);
   }
   disconnect(): Promise<void> {
-    clearLocalStorage();
+    RemoveLocalStorage(LocalStorageKeys.AUTH_STATE);
     return new Promise((resolver) => setTimeout(resolver, 100));
   }
 }

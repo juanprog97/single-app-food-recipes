@@ -3,18 +3,12 @@
     <div class="ContainerAllItem">
       <FoodItem
         v-for="(item, index) in DataRender"
-        :key="index"
-        :dataInfo="item"
+        :key="index + item.id"
+        :dataFood="item"
       />
-      <!-- <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem />
-      <FoodItem /> -->
+      <!-- <h1 class="NotFoundText" v-show="ListDataComp.length == 0">
+        {{ labelEmptyData }}
+      </h1> -->
     </div>
     <div class="PaginationOption" v-if="totalPage > 1">
       <button class="primary" v-if="pageCurrently > 1" :onClick="prevPage">
@@ -33,36 +27,54 @@
 </template>
 
 <script lang="ts">
+import { FoodRecipe } from "@/domain/entity";
 import { defineComponent } from "vue";
 import FoodItem from "./FoodItem.vue";
 
 export default defineComponent({
   props: {
-    ListData: { type: Array<Object>, required: true },
+    ListData: { type: Array<FoodRecipe>, required: true },
     maxNumElem: {
       type: Number,
       required: true,
     },
+    labelEmptyData: {
+      type: String,
+      required: true,
+    },
   },
   setup() {
-    let DataRender: Object[] = [];
+    let DataRender: FoodRecipe[] = [];
+
     return {
       DataRender,
     };
   },
+
   data() {
     return {
-      ListAllData: this.ListData,
-      totalPage: 0,
       pageCurrently: 0,
     };
   },
   created() {
-    this.totalPage = Math.ceil(this.ListData.length / this.maxNumElem);
-    this.DataRender = this.ListAllData.slice(0, this.maxNumElem);
     if (this.totalPage > 1) {
       this.pageCurrently = 1;
     }
+
+    console.log(this.maxNumElem > this.ListDataComp.length);
+    this.DataRender =
+      this.maxNumElem <= this.ListDataComp.length
+        ? this.ListDataComp.slice(0, this.maxNumElem)
+        : this.ListDataComp;
+    console.log(this.DataRender);
+  },
+  computed: {
+    ListDataComp(): any {
+      return this.ListData;
+    },
+    totalPage(): number {
+      return Math.ceil(this.ListDataComp.length / this.maxNumElem);
+    },
   },
   methods: {
     nextPage() {
@@ -70,11 +82,11 @@ export default defineComponent({
 
       this.DataRender =
         this.pageCurrently == this.totalPage
-          ? this.ListAllData.slice(
+          ? this.ListDataComp.slice(
               (this.pageCurrently - 1) * this.maxNumElem,
-              this.ListAllData.length
+              this.ListData.length
             )
-          : this.ListAllData.slice(
+          : this.ListDataComp.slice(
               (this.pageCurrently - 1) * this.maxNumElem,
               this.pageCurrently * this.maxNumElem
             );
@@ -84,8 +96,8 @@ export default defineComponent({
       this.pageCurrently -= 1;
       this.DataRender =
         this.pageCurrently == 1
-          ? this.ListAllData.slice(0, this.maxNumElem)
-          : this.ListAllData.slice(
+          ? this.ListDataComp.slice(0, this.maxNumElem)
+          : this.ListDataComp.slice(
               (this.pageCurrently - 1) * this.maxNumElem,
               this.pageCurrently * this.maxNumElem
             );
@@ -110,17 +122,21 @@ export default defineComponent({
   padding: 1em;
   height: auto;
   width: 100%;
-  max-height: 80%;
+  max-height: 95%;
   overflow-y: auto;
 
   .ContainerAllItem {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     gap: 1em;
     flex-direction: row;
     width: auto;
+    .NotFoundText {
+      color: var(--clr-normal-grey);
+      font-weight: 400;
+    }
   }
   .PaginationOption {
     margin-top: 1em;

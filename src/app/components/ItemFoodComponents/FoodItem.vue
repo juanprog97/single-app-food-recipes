@@ -1,18 +1,22 @@
 <template>
   <div class="ContainerFoodItem">
     <div class="FoodRecipesImg">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTNYjVUIQlQ1AbR-BcTMqDPMtnGfQG3X5gOAO-2KFYZENVYZneK4QTaE99aDXQf18Df7s&usqp=CAU"
-        alt="ContainerImg"
-      />
+      <img :src="dataFood.image" alt="img-food-recipe" />
     </div>
 
-    <h2 class="TitleFood">Cookie</h2>
-    <p class="DescriptionFood">Details dsañdkaslñkd ñlaskdña skd</p>
+    <h2 class="TitleFood">{{ dataFood.name }}</h2>
+    <p class="DescriptionFood">{{ dataFood.description }}</p>
     <router-link
       :to="{
         name: 'Details',
-        params: { id: JSON.stringify({ erda: 'hola', lo: 23 }) },
+        query: {
+          description: JSON.stringify(dataFood.description),
+          img: JSON.stringify(dataFood.image),
+          ingredient: JSON.stringify(dataFood.ingredient),
+          nutrition: JSON.stringify(dataFood.nutrition),
+          instructions: JSON.stringify(dataFood.instructions),
+        },
+        params: { name: JSON.stringify(dataFood.name) },
       }"
       target="_blank"
     >
@@ -32,7 +36,7 @@
       </button>
     </router-link>
 
-    <button class="primary ButtonFood">
+    <button class="primary ButtonFood" @click="addFavoriteFoodRecipe()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
@@ -63,12 +67,38 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { FoodRecipe } from "@/domain/entity";
+import type { PropType } from "vue";
+import { getModule } from "vuex-module-decorators";
+import { FoodStore } from "@/app/store/foodRecipes";
+import { store } from "@/app/store";
+import { Store } from "vuex";
+import { UserStore } from "@/app/store/authUser";
 
 export default defineComponent({
   setup() {
-    return {};
+    const foodAction = getModule(FoodStore, store);
+    const userAction = getModule(UserStore, store);
+    const userEmail = userAction.userMail;
+    return { foodAction, userAction, userEmail };
   },
-  props: ["dataFood"],
+  props: {
+    dataFood: { type: Object as PropType<FoodRecipe>, required: true },
+  },
+  methods: {
+    addFavoriteFoodRecipe() {
+      this.foodAction.addFavoriteRecipe({
+        value: this.dataFood,
+        user: this.userAction.userMail,
+      });
+    },
+    removeFavoriteFoodRecipe() {
+      this.foodAction.DeleteFavoriteFood({
+        value: this.dataFood.id,
+        user: this.userAction.userMail,
+      });
+    },
+  },
 });
 </script>
 
@@ -97,8 +127,15 @@ export default defineComponent({
     font-weight: bold;
   }
   .DescriptionFood {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    max-height: 4em;
     color: var(--clr-normal-grey);
     font-weight: 500;
+    margin-bottom: 1.2em;
   }
 
   .ButtonFood {

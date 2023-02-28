@@ -1,27 +1,50 @@
+import { Ingredient } from '../../../domain/entity/index';
 <template>
   <div class="ContainerDetails">
     <div class="ContainerCardDetailsFood">
       <section class="Description">
         <div class="SectionDescription">
-          <h1>Chicken Steak</h1>
+          <h1>{{ name }}</h1>
           <p class="descriptionFood">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
+            {{ description }}
           </p>
-          <section>
-            <h2>Ingredients</h2>
-            <div>erda1</div>
+          <section class="SectionIngredientPreparation">
+            <div class="InstIngredient">
+              <h2>Ingredients</h2>
+              <div class="ListIngredient">
+                <ul>
+                  <li
+                    v-for="(ingredient, index) in ingredients"
+                    v-bind:key="index"
+                  >
+                    <div class="ItemIngredient">
+                      <p class="nameIngredient">{{ ingredient.name }}</p>
+                      <p class="descriptionIngredient">
+                        {{ ingredient.description }}
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="InstPreparation">
+              <h2>Preparation steps</h2>
+              <ol v-if="instructions.length > 0">
+                <li v-for="(instru, index) in instructions" v-bind:key="index">
+                  {{ instru }}
+                </li>
+              </ol>
+              <p v-else>Coming Soon!!</p>
+            </div>
           </section>
-          <section>
-            <h2>Nutrions</h2>
-            <div>erdaa</div>
+          <section class="NutritionSection">
+            <h2>Nutrition</h2>
+            <div class="ListNutrition" v-if="nutrition.length > 0">
+              <p v-for="(nutEl, index) in nutrition" v-bind:key="index">
+                {{ nutEl }}
+              </p>
+            </div>
+            <p v-else>Coming Soon!!</p>
           </section>
           <button class="primary addFavoriteButton">
             <svg
@@ -52,10 +75,7 @@
         </div>
 
         <div class="containerImage">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTNYjVUIQlQ1AbR-BcTMqDPMtnGfQG3X5gOAO-2KFYZENVYZneK4QTaE99aDXQf18Df7s&usqp=CAU"
-            alt=""
-          />
+          <img :src="imgUrl" alt="" />
         </div>
       </section>
     </div>
@@ -64,8 +84,23 @@
 
 <script>
 export default {
-  setup() {
-    return {};
+  data() {
+    return {
+      name: "",
+      description: "",
+      nutrition: [],
+      ingredients: [],
+      imgUrl: "",
+      instructions: [],
+    };
+  },
+  mounted() {
+    this.name = this.$route.params.name;
+    this.description = JSON.parse(this.$route.query.description);
+    this.nutrition = JSON.parse(this.$route.query.nutrition);
+    this.ingredients = JSON.parse(this.$route.query.ingredient);
+    this.imgUrl = JSON.parse(this.$route.query.img);
+    this.instructions = JSON.parse(this.$route.query.instructions);
   },
 };
 </script>
@@ -86,6 +121,7 @@ h2 {
   font-weight: bold;
 }
 .ContainerDetails {
+  font-family: "Arima Madurai";
   background-color: var(--clr-normal-background);
   padding: 1em;
 
@@ -93,26 +129,65 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 1em;
+
     width: auto;
-    height: 96vh;
+    height: 95vh;
     border-radius: 10px;
     border: 10px solid var(--clr-normal-white);
     background-color: var(--clr-normal-background);
     box-shadow: 0px 0px 10px 0px rgba(black, 0.2);
     padding: 1em;
     .Description {
-      display: flex;
-      flex-direction: row;
-      gap: 0.6em;
+      display: grid;
+
+      gap: 1em;
+      grid-template-columns: 1fr 40em;
       height: 100%;
+      width: 100%;
       .SectionDescription {
         float: left;
         display: flex;
+        padding: 2em;
+        overflow-y: auto;
+        max-height: 90%;
         flex-direction: column;
-        justify-content: space-evenly;
+
         gap: 0.6em;
         .descriptionFood {
           text-align: justify;
+        }
+        .SectionIngredientPreparation {
+          display: grid;
+          grid-template-columns: 0.5fr 1fr;
+          gap: 1em;
+          .InstIngredient {
+            .ListIngredient {
+              margin-left: 2em;
+              ul {
+                list-style-type: circle !important;
+
+                li {
+                  list-style: circle !important;
+                  .ItemIngredient {
+                    .nameIngredient {
+                      font-size: 1.2em;
+                      font-weight: bold;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .InstPreparation {
+            text-align: center;
+            ol {
+              li {
+                list-style: auto;
+                font-size: 1.2em;
+                text-align: initial;
+              }
+            }
+          }
         }
         .addFavoriteButton {
           display: flex;

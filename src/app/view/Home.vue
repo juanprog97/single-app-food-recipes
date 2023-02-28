@@ -50,7 +50,11 @@
     <div class="Container_Content">
       <router-view v-slot="{ Component }">
         <transition name="moveUp" mode="out-in">
-          <component :is="Component" :key="$route.path"></component>
+          <component :is="Component" :key="$route.path">
+            <Suspense>
+              <template #fallback> <SpinnerLoading /> </template>
+            </Suspense>
+          </component>
         </transition>
       </router-view>
     </div>
@@ -74,29 +78,33 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
+import SpinnerLoading from "../components/SpinnerLoading.vue";
 import { getModule } from "vuex-module-decorators";
 import { key } from "../store";
 import { UserStore } from "../store/authUser";
 import imgUrl from "../assets/images/avatarDefault.webp";
 
 export default defineComponent({
-  setup() {
+  async setup() {
     const store = useStore(key);
     const userLoginAction = getModule(UserStore, store);
 
     return { userLoginAction };
   },
-  mounted() {
+  async mounted() {
     if (this.imgAvatarSrc == "") {
       this.isloadImage = false;
       this.isLoadingImage = true;
       this.imgAvatarSrc = imgUrl;
     }
   },
+  components: {
+    SpinnerLoading,
+  },
   methods: {
     async logout() {
       await this.userLoginAction.logoutExit();
-      this.$router.push({ name: "Login" });
+      this.$router.go(0);
     },
     loadedImage() {
       this.isloadImage = true;

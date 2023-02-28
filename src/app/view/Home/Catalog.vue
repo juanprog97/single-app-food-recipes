@@ -3,41 +3,12 @@
     <h2 class="TitleListMeal">Food Recipe List</h2>
     <InputTypeahead id="Input_Search_Food" @confirmSearch="searchFood" />
     <ListFood
-      v-bind:ListData="[
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]"
-      v-bind:maxNumElem="20"
+      v-bind:labelEmptyData="'No results found'"
+      v-bind:ListData="foodAction.getListSearchFood"
+      v-bind:maxNumElem="5"
+      v-if="foodAction.isLoadingState == false && foodAction.getListSearchFood"
     />
+    <SpinnerLoading v-else />
   </div>
 </template>
 
@@ -45,18 +16,29 @@
 import { defineComponent } from "vue";
 import InputTypeahead from "../../components/InputSearchTypeahead/InputTypeahead.vue";
 import ListFood from "@/app/components/ItemFoodComponents/ListFood.vue";
+import { getModule } from "vuex-module-decorators";
+import { FoodStore } from "@/app/store/foodRecipes";
+import { store } from "@/app/store";
+import SpinnerLoading from "@/app/components/SpinnerLoading.vue";
+
 export default defineComponent({
+  async setup() {
+    const foodAction = getModule(FoodStore, store);
+
+    return { foodAction };
+  },
+  async mounted() {
+    await this.foodAction.searchFoodRecipes("");
+  },
   components: {
     InputTypeahead,
     ListFood,
+    SpinnerLoading,
   },
   methods: {
     searchFood(value: string) {
       console.log(value);
     },
-  },
-  setup() {
-    return {};
   },
 });
 </script>

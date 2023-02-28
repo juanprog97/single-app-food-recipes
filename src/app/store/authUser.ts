@@ -19,15 +19,14 @@ export class UserStore extends VuexModule implements UserState {
 
   private authenticate: Authenticate = new Authenticate(new AuthLocalStorage());
   private logout: Logout = new Logout(new AuthLocalStorage());
-
+  get userMail() {
+    return this.user.email;
+  }
   @Mutation
   setUser(user: User) {
     this.user = { email: user.email, username: user.username, state: true };
   }
-  @Mutation
-  clearUser() {
-    this.user = {};
-  }
+
   @Action({ rawError: true })
   async login(user: User) {
     const userDetails = await this.authenticate.execute(user);
@@ -38,6 +37,5 @@ export class UserStore extends VuexModule implements UserState {
   @Action({ rawError: true })
   async logoutExit() {
     await this.logout.execute();
-    this.clearUser();
   }
 }
