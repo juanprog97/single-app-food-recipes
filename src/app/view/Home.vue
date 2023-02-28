@@ -1,4 +1,5 @@
 <template>
+  <ModalPaintShape />
   <div class="Container_Home">
     <div class="Container_SideBar">
       <div class="User_Details">
@@ -58,7 +59,7 @@
         </transition>
       </router-view>
     </div>
-    <button id="AppDraw_button" class="primary">
+    <button id="AppDraw_button" v-bind:onClick="openModal" class="primary">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
@@ -84,7 +85,7 @@ import { key } from "../store";
 import { UserStore } from "../store/authUser";
 import imgUrl from "../assets/images/avatarDefault.webp";
 import { FoodStore } from "../store/foodRecipes";
-
+import ModalPaintShape from "../components/ModalPaintShape.vue";
 export default defineComponent({
   async setup() {
     const store = useStore(key);
@@ -102,11 +103,18 @@ export default defineComponent({
   },
   components: {
     SpinnerLoading,
+    ModalPaintShape,
   },
   methods: {
     async logout() {
       await this.userLoginAction.logoutExit();
       this.$router.go(0);
+    },
+    openModal() {
+      const ModalElement: HTMLDialogElement = document.getElementById(
+        "modalElementShape"
+      ) as HTMLDialogElement;
+      ModalElement.showModal();
     },
     loadedImage() {
       this.isloadImage = true;
@@ -118,6 +126,7 @@ export default defineComponent({
       imgAvatarSrc: "",
       isloadImage: false,
       isLoadingImage: false,
+      ModalElementRef: null,
     };
   },
 });

@@ -28,7 +28,7 @@ export default defineComponent({
     return { foodAction };
   },
   async mounted() {
-    await this.foodAction.searchFoodRecipes("");
+    //await this.foodAction.searchFoodRecipes("");
   },
   components: {
     InputTypeahead,

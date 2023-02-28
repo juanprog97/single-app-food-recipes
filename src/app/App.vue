@@ -1,11 +1,11 @@
 
 <template>
+ 
   <Suspense><router-view></router-view></Suspense>
 </template>
 
 <script setup lang="ts">
-import Login from "./view/Login.vue";
-import Home from "./view/Home.vue";
+import ModalPaintShape from "./components/ModalPaintShape.vue";
 </script>
 
 
