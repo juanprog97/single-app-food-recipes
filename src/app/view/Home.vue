@@ -83,12 +83,14 @@ import { getModule } from "vuex-module-decorators";
 import { key } from "../store";
 import { UserStore } from "../store/authUser";
 import imgUrl from "../assets/images/avatarDefault.webp";
+import { FoodStore } from "../store/foodRecipes";
 
 export default defineComponent({
   async setup() {
     const store = useStore(key);
     const userLoginAction = getModule(UserStore, store);
-
+    const foodAction = getModule(FoodStore, store);
+    await foodAction.fetchAllFavoriteFoodRecipes(userLoginAction.userMail);
     return { userLoginAction };
   },
   async mounted() {

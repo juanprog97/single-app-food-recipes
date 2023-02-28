@@ -6,9 +6,9 @@
         :key="index + item.id"
         :dataFood="item"
       />
-      <!-- <h1 class="NotFoundText" v-show="ListDataComp.length == 0">
+      <h1 class="NotFoundText" v-show="DataRender.length == 0">
         {{ labelEmptyData }}
-      </h1> -->
+      </h1>
     </div>
     <div class="PaginationOption" v-if="totalPage > 1">
       <button class="primary" v-if="pageCurrently > 1" :onClick="prevPage">
@@ -61,12 +61,10 @@ export default defineComponent({
       this.pageCurrently = 1;
     }
 
-    console.log(this.maxNumElem > this.ListDataComp.length);
     this.DataRender =
       this.maxNumElem <= this.ListDataComp.length
         ? this.ListDataComp.slice(0, this.maxNumElem)
         : this.ListDataComp;
-    console.log(this.DataRender);
   },
   computed: {
     ListDataComp(): any {

@@ -25,9 +25,7 @@ export default class MemoryLocalStorage implements IMemoryRepository {
         LocalStorageKeys.FAVORITE_FOODS,
         JSON.stringify(newDataFavorite)
       );
-    } catch (error: any) {
-      console.log(error);
-    }
+    } catch (error: any) {}
   }
   deleteFavoriteFoodRecipe(id: string, user: string): void {
     try {
@@ -36,17 +34,16 @@ export default class MemoryLocalStorage implements IMemoryRepository {
       );
       const dataUserExactly = dataFavorite[user];
       const { [id]: value, ...newDataDeleteFavorite } = dataUserExactly;
-      const newDataList = {
-        ...dataUserExactly,
-        [user]: newDataDeleteFavorite,
+      const newDataUser = { [user]: newDataDeleteFavorite };
+      const newDataListFavorite = {
+        ...dataFavorite,
+        ...newDataUser,
       };
       saveInLocalStorage(
         LocalStorageKeys.FAVORITE_FOODS,
-        JSON.stringify(newDataList)
+        JSON.stringify(newDataListFavorite)
       );
-    } catch (error: any) {
-      console.log(error);
-    }
+    } catch (error: any) {}
   }
   fetchAllFavoriteRecipe(user: string): TypeWithKey<any> {
     const AllListUserFavorite: TypeWithKey<any> = JSON.parse(

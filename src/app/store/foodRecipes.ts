@@ -52,6 +52,9 @@ export class FoodStore extends VuexModule implements FoodState {
       return this.listFavoriteFood[id];
     });
   }
+  get getListAllDictionary() {
+    return this.listFavoriteFood;
+  }
 
   get isLoadingState() {
     return this.isLoading;
@@ -76,8 +79,8 @@ export class FoodStore extends VuexModule implements FoodState {
   @Mutation
   AddFavoriteStore(data: FoodRecipe) {
     //Add Favorite Food
-    const key = data.id;
-    const newData = { ...this.listFavoriteFood, key: data };
+    const keya = data.id;
+    const newData = { ...this.listFavoriteFood, [keya]: data };
     this.listFavoriteFood = newData;
   }
   @Mutation
@@ -113,13 +116,8 @@ export class FoodStore extends VuexModule implements FoodState {
     this.AddFavoriteStore(foodRecipe.value);
   }
   @Action({ rawError: true })
-  async DeleteFavoriteFood(foodRecipe: any) {
+  async DeleteFavoriteRecipe(foodRecipe: any) {
     await this.deleteFoodFavorite.execute(foodRecipe.value, foodRecipe.user);
-    this.DeleteFavoriteStore(foodRecipe.value.id);
-  }
-
-  @Action({ rawError: true })
-  isFavoriteAdded(id: string) {
-    return this.listFavoriteFood.hasOwnProperty(id);
+    this.DeleteFavoriteStore(foodRecipe.value);
   }
 }

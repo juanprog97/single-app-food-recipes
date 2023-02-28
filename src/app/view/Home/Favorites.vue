@@ -26,8 +26,6 @@ export default defineComponent({
   },
   async setup() {
     const foodAction = getModule(FoodStore, store);
-    const userAction = getModule(UserStore, store);
-    await foodAction.fetchAllFavoriteFoodRecipes(userAction.userMail);
     return { foodAction };
   },
 });
