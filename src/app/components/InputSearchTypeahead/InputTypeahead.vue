@@ -62,7 +62,7 @@ export default defineComponent({
       const callEndpoint = this.autoCompleteService.execute(newValue);
       this.controllerAbort = callEndpoint.controller;
       const response = await callEndpoint.call;
-      this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
+      //this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
     },
   },
   data() {

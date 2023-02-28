@@ -26,6 +26,11 @@
       transition: background-color 0.2s ease-out;
       background-color: var(--clr-normal-primaryHover);
     }
+    &[data-state="true"] {
+      background-color: var(--clr-normal-primaryHover);
+      pointer-events: none;
+      cursor: none;
+    }
   }
 }
 
