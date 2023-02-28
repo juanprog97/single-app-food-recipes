@@ -1,10 +1,11 @@
-import { Ingredient } from '../../../domain/entity/index';
+
+
 <template>
   <div class="ContainerDetails">
     <div class="ContainerCardDetailsFood">
       <section class="Description">
         <div class="SectionDescription">
-          <h1>{{ name }}</h1>
+          <h1>{{ nameFood }}</h1>
           <p class="descriptionFood">
             {{ description }}
           </p>
@@ -14,7 +15,7 @@ import { Ingredient } from '../../../domain/entity/index';
               <div class="ListIngredient">
                 <ul>
                   <li
-                    v-for="(ingredient, index) in ingredients"
+                    v-for="(ingredient, index) in Ingredient"
                     v-bind:key="index"
                   >
                     <div class="ItemIngredient">
@@ -37,7 +38,7 @@ import { Ingredient } from '../../../domain/entity/index';
               <p v-else>Coming Soon!!</p>
             </div>
           </section>
-          <section class="NutritionSection">
+          <section class="SectionNutrition">
             <h2>Nutrition</h2>
             <div class="ListNutrition" v-if="nutrition.length > 0">
               <p v-for="(nutEl, index) in nutrition" v-bind:key="index">
@@ -46,34 +47,7 @@ import { Ingredient } from '../../../domain/entity/index';
             </div>
             <p v-else>Coming Soon!!</p>
           </section>
-          <button class="primary addFavoriteButton">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              viewBox="0 96 960 960"
-              width="24"
-              class="favoriteIconFoodNot"
-            >
-              <path
-                d="m480 936-58-52q-101-91-167-157T150 608.5Q111 556 95.5 512T80 422q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810 608.5Q771 661 705 727T538 884l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518 376h-76q-15-41-55-67.5T300 282q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480 828Zm0-273Z"
-              />
-            </svg>
-            <svg
-              class="favoriteIconFoodYes"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              viewBox="0 96 960 960"
-              width="24"
-            >
-              <path
-                d="m480 936-58-52q-101-91-167-157T150 608.5Q111 556 95.5 512T80 422q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810 608.5Q771 661 705 727T538 884l-58 52Z"
-              />
-            </svg>
-
-            <p>Add Favorite</p>
-          </button>
         </div>
-
         <div class="containerImage">
           <img :src="imgUrl" alt="" />
         </div>
@@ -82,27 +56,45 @@ import { Ingredient } from '../../../domain/entity/index';
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { store } from "@/app/store";
+
+import { defineComponent } from "vue";
+import { getModule } from "vuex-module-decorators";
+import { Ingredient } from "../../../domain/entity/index";
+export default defineComponent({
+  setup() {
+    let Ingredient: Ingredient[] = [];
+    return { Ingredient };
+  },
   data() {
     return {
-      name: "",
+      nameFood: "",
       description: "",
       nutrition: [],
-      ingredients: [],
       imgUrl: "",
       instructions: [],
+
+      id: "",
     };
   },
-  mounted() {
-    this.name = this.$route.params.name;
+  created() {
+    //@ts-ignore
+    this.id = JSON.parse(this.$route.query.id);
+    //@ts-ignore
+    this.nameFood = JSON.parse(this.$route.params.name);
+    //@ts-ignore
     this.description = JSON.parse(this.$route.query.description);
+    //@ts-ignore
     this.nutrition = JSON.parse(this.$route.query.nutrition);
-    this.ingredients = JSON.parse(this.$route.query.ingredient);
+    //@ts-ignore
+    this.Ingredient = JSON.parse(this.$route.query.ingredient);
+    //@ts-ignore
     this.imgUrl = JSON.parse(this.$route.query.img);
+    //@ts-ignore
     this.instructions = JSON.parse(this.$route.query.instructions);
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -196,6 +188,24 @@ h2 {
           align-content: center;
           width: fit-content;
           align-self: center;
+          svg.favoriteIconFoodNot {
+            pointer-events: none;
+            fill: var(--clr-normal-white);
+          }
+          svg.favoriteIconFoodYes {
+            pointer-events: none;
+            fill: var(--clr-normal-redLike);
+          }
+        }
+      }
+      .SectionNutrition {
+        .ListNutrition {
+          display: flex;
+          flex-direction: row;
+          gap: 1em;
+          flex-wrap: wrap;
+          font-size: 1.6em;
+          justify-content: space-between;
         }
       }
       .containerImage {

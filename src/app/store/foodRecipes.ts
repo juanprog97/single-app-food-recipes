@@ -112,6 +112,7 @@ export class FoodStore extends VuexModule implements FoodState {
 
   @Action({ rawError: true })
   async addFavoriteRecipe(foodRecipe: any) {
+    debugger;
     await this.addFoodFavorite.execute(foodRecipe.value, foodRecipe.user);
     this.AddFavoriteStore(foodRecipe.value);
   }

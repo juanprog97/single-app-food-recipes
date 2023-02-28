@@ -15,6 +15,8 @@
           ingredient: JSON.stringify(dataFood.ingredient),
           nutrition: JSON.stringify(dataFood.nutrition),
           instructions: JSON.stringify(dataFood.instructions),
+          userEmail: JSON.stringify(userEmail),
+          id: JSON.stringify(dataFood.id),
         },
         params: { name: JSON.stringify(dataFood.name) },
       }"
