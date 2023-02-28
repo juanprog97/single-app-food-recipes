@@ -36,8 +36,8 @@ export default defineComponent({
     SpinnerLoading,
   },
   methods: {
-    searchFood(value: string) {
-      console.log(value);
+    async searchFood(value: string) {
+      await this.foodAction.searchFoodRecipes(value);
     },
   },
 });

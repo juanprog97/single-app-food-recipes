@@ -30,7 +30,7 @@
             </div>
             <div class="InstPreparation">
               <h2>Preparation steps</h2>
-              <ol v-if="instructions.length > 0">
+              <ol v-if="instructions">
                 <li v-for="(instru, index) in instructions" v-bind:key="index">
                   {{ instru }}
                 </li>
@@ -40,7 +40,7 @@
           </section>
           <section class="SectionNutrition">
             <h2>Nutrition</h2>
-            <div class="ListNutrition" v-if="nutrition.length > 0">
+            <div class="ListNutrition" v-if="nutrition">
               <p v-for="(nutEl, index) in nutrition" v-bind:key="index">
                 {{ nutEl }}
               </p>

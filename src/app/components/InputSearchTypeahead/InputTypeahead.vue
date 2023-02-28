@@ -59,10 +59,10 @@ export default defineComponent({
     async inputValueSearch(newValue) {
       this.controllerAbort?.abort();
 
-      //const callEndpoint = this.autoCompleteService.execute(newValue);
-      //this.controllerAbort = callEndpoint.controller;
-      //const response = await callEndpoint.call;
-      // this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
+      const callEndpoint = this.autoCompleteService.execute(newValue);
+      this.controllerAbort = callEndpoint.controller;
+      const response = await callEndpoint.call;
+      this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
     },
   },
   data() {
