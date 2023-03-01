@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1677632347518" clover="3.2.0">
-  <project timestamp="1677632347518" name="All files">
+<coverage generated="1677642720527" clover="3.2.0">
+  <project timestamp="1677642720527" name="All files">
     <metrics statements="129" coveredstatements="44" conditionals="113" coveredconditionals="20" methods="29" coveredmethods="8" elements="271" coveredelements="72" complexity="0" loc="129" ncloc="129" packages="1" files="1" classes="1"/>
     <file name="Login.vue" path="C:\Users\juanm\Documents\57Blocks\single-meal-app-web\src\app\view\Login.vue">
       <metrics statements="129" coveredstatements="44" conditionals="113" coveredconditionals="20" methods="29" coveredmethods="8"/>

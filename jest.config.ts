@@ -13,7 +13,6 @@ const jestConfig: JestConfigWithTsJest = {
     "^.+\\js$": "babel-jest",
     "^.+\\.ts$": "ts-jest",
   },
-  collectCoverage: true,
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
   },
