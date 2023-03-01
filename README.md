@@ -1,12 +1,16 @@
-# Vue 3 + TypeScript + Vite
+# Single Meal App
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![plot](/public/logo.png)
 
-## Recommended IDE Setup
+It is a simple application that allows the user to log in to a simple food recipe search functionality, where you can see details of the recipes (name, instructions, nutritional value, etc.) and also select and save your favorite recipe, in where it remains to be saved even when you log out and log in again with the same email. The application also has a mini option to draw a figure by placing the points and this at the end joins them.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Captures
 
-## Type Support For `.vue` Imports in TS
+
+
+## Instructions
+
+## Links
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 

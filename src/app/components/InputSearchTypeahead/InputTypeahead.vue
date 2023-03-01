@@ -25,11 +25,14 @@
         <p>Search</p>
       </button>
     </div>
-    <div id="ListSuggestFood">
+    <div
+      id="ListSuggestFood"
+      v-bind:data-state-see="inputValueSearch.length > 1 ? 'show' : 'hide'"
+    >
       <button
         class="ButtonSuggestOption"
         v-for="(suggest, index) in listSuggestionFood"
-        :key="index"
+        :key="index + 'sda'"
         @click="changeValueInput(suggest)"
       >
         {{ suggest }}
@@ -56,13 +59,17 @@ export default defineComponent({
     };
   },
   watch: {
-    async inputValueSearch(newValue) {
-      this.controllerAbort?.abort();
+    async inputValueSearch(newValue, oldValue) {
+      console.log(newValue + "new");
+      console.log(oldValue + "old");
+      if (newValue !== "") {
+        this.controllerAbort?.abort();
 
-      const callEndpoint = this.autoCompleteService.execute(newValue);
-      this.controllerAbort = callEndpoint.controller;
-      const response = await callEndpoint.call;
-      this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
+        const callEndpoint = this.autoCompleteService.execute(newValue);
+        this.controllerAbort = callEndpoint.controller;
+        const response = await callEndpoint.call;
+        this.listSuggestionFood = foodCompleteSuggestionAdapter(response.data);
+      }
     },
   },
   data() {
@@ -77,6 +84,7 @@ export default defineComponent({
     },
     confirmSearch() {
       this.$emit("confirmSearch", this.inputValueSearch);
+      this.inputValueSearch = "";
     },
   },
 });
@@ -115,6 +123,12 @@ export default defineComponent({
     justify-content: flex-start;
     background-color: var(--clr-normal-white);
     border: 1px solid var(--clr-normal-whiteGrey);
+    &[data-state-see="show"] {
+      display: flex;
+    }
+    &[data-state-see="hide"] {
+      display: none;
+    }
     .ButtonSuggestOption {
       cursor: pointer;
       padding: 0.2em 0.4em;
