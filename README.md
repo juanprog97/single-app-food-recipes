@@ -12,7 +12,7 @@ It is a simple application that allows the user to log in to a simple food recip
 
 #### Login Page
 
-![login](/public/logincA.png)
+![login](/public/loginCa.png)
 
 #### Home Page
 
