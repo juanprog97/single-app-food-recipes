@@ -3,7 +3,7 @@
     <h2 class="TitleListFavoriteFood">All my favorite food recipes</h2>
     <ListFood
       v-bind:labelEmptyData="'You have no favorite food recipes'"
-      v-bind:ListData="foodAction.getLisAllFavoriteFood"
+      v-bind:ListData="listFavorite"
       v-bind:maxNumElem="20"
       v-if="foodAction.isLoadingState == false"
     />
@@ -17,7 +17,6 @@ import ListFood from "@/app/components/ItemFoodComponents/ListFood.vue";
 import { store } from "@/app/store";
 import { FoodStore } from "@/app/store/foodRecipes";
 import { getModule } from "vuex-module-decorators";
-import { UserStore } from "@/app/store/authUser";
 import SpinnerLoading from "@/app/components/SpinnerLoading.vue";
 export default defineComponent({
   components: {
@@ -27,6 +26,11 @@ export default defineComponent({
   async setup() {
     const foodAction = getModule(FoodStore, store);
     return { foodAction };
+  },
+  computed: {
+    listFavorite() {
+      return this.foodAction.getLisAllFavoriteFood;
+    },
   },
 });
 </script>

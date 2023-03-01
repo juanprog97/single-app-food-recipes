@@ -131,7 +131,7 @@ export default defineComponent({
   visibility: hidden;
   pointer-events: none;
   height: auto;
-  width: 50%;
+  width: auto;
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -143,6 +143,11 @@ export default defineComponent({
   .ContainerDrawPaint {
     border: 3px solid var(--clr-normal-primary);
     border-radius: 10px;
+    #DrawPaintCanvas {
+      &:hover {
+        cursor: crosshair;
+      }
+    }
   }
   .optionModal {
     display: none;

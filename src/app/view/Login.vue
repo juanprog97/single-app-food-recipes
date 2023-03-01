@@ -16,6 +16,7 @@
         class="Form_Container"
         :validation-schema="schema"
         @submit="handleSubmit"
+        data-testid="t_form_login"
       >
         <div class="Field_input">
           <label class="Label_input" for="emailInput">Email</label>
@@ -27,7 +28,11 @@
             placeholder="example@organization.com"
             type="text"
           />
-          <ErrorMessage id="Error_Message_Field" name="email" />
+          <ErrorMessage
+            class="Error_Message_Field"
+            id="Error_Message_Field_Email"
+            name="email"
+          />
         </div>
 
         <div class="Field_input">
@@ -39,7 +44,11 @@
             class="input-style"
             type="password"
           />
-          <ErrorMessage id="Error_Message_Field" name="password" />
+          <ErrorMessage
+            class="Error_Message_Field"
+            id="Error_Message_Field_Password"
+            name="password"
+          />
         </div>
 
         <a id="Label_ForgetPassword">Forget password?</a>
@@ -58,7 +67,7 @@ import * as yup from "yup";
 import { useStore } from "vuex";
 import { key } from "../store";
 import { getModule } from "vuex-module-decorators";
-import { UserStore } from "../store/authUser";
+import { UserStore } from "@/app/store/authUser";
 
 export default defineComponent({
   setup() {
@@ -165,7 +174,7 @@ export default defineComponent({
           font-weight: 500;
           margin-bottom: 0.2em;
         }
-        #Error_Message_Field {
+        .Error_Message_Field {
           font-size: var(--small-font-size);
           color: var(--clr-normal-red);
         }

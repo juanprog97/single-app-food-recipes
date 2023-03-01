@@ -48,9 +48,11 @@ export class FoodStore extends VuexModule implements FoodState {
     return this.searchResultFood;
   }
   get getLisAllFavoriteFood() {
-    return Object.keys(this.listFavoriteFood).map((id: string) => {
-      return this.listFavoriteFood[id];
-    });
+    if (this.listFavoriteFood != null) {
+      return Object.keys(this.listFavoriteFood).map((id: string) => {
+        return this.listFavoriteFood[id];
+      });
+    } else return [] as FoodRecipe[];
   }
   get getListAllDictionary() {
     return this.listFavoriteFood;
@@ -80,8 +82,7 @@ export class FoodStore extends VuexModule implements FoodState {
   AddFavoriteStore(data: FoodRecipe) {
     //Add Favorite Food
     const keya = data.id;
-    const newData = { ...this.listFavoriteFood, [keya]: data };
-    this.listFavoriteFood = newData;
+    this.listFavoriteFood[keya] = data;
   }
   @Mutation
   setListFavoriteFoodRecipes(data: TypeWithKey<FoodRecipe>) {

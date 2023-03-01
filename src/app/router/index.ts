@@ -1,15 +1,17 @@
 import Login from "@/app/view/Login.vue";
+import Catalog from "@/app/view/Home/Catalog.vue";
+import Favorites from "@/app/view/Home/Favorites.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
 const Home = () => import("../view/Home.vue");
 const Dashboard = () => import("../view/Dashboard.vue");
 
-const Favorites = () => import("../view/home/Favorites.vue");
+//const Favorites = () => import("../view/home/Favorites.vue");
 
 const Details = () => import("../view/home/Details.vue");
 
-const Catalog = () => import("../view/home/Catalog.vue");
+//const Catalog = () => import("../view/home/Catalog.vue");
 
 const routes = [
   {

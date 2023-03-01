@@ -30,7 +30,7 @@
             </div>
             <div class="InstPreparation">
               <h2>Preparation steps</h2>
-              <ol v-if="instructions">
+              <ol v-if="instructions && instructions.length > 0">
                 <li v-for="(instru, index) in instructions" v-bind:key="index">
                   {{ instru }}
                 </li>
@@ -40,7 +40,7 @@
           </section>
           <section class="SectionNutrition">
             <h2>Nutrition</h2>
-            <div class="ListNutrition" v-if="nutrition">
+            <div class="ListNutrition" v-if="nutrition && nutrition.length > 0">
               <p v-for="(nutEl, index) in nutrition" v-bind:key="index">
                 {{ nutEl }}
               </p>
@@ -57,8 +57,6 @@
 </template>
 
 <script lang="ts">
-import { store } from "@/app/store";
-
 import { defineComponent } from "vue";
 import { getModule } from "vuex-module-decorators";
 import { Ingredient } from "../../../domain/entity/index";
@@ -116,6 +114,8 @@ h2 {
   font-family: "Arima Madurai";
   background-color: var(--clr-normal-background);
   padding: 1em;
+  height: 100vh;
+  overflow: hidden;
 
   .ContainerCardDetailsFood {
     display: flex;
@@ -123,7 +123,6 @@ h2 {
     gap: 1em;
 
     width: auto;
-    height: 95vh;
     border-radius: 10px;
     border: 10px solid var(--clr-normal-white);
     background-color: var(--clr-normal-background);
@@ -134,7 +133,7 @@ h2 {
 
       gap: 1em;
       grid-template-columns: 1fr 40em;
-      height: 100%;
+      height: 90vh;
       width: 100%;
       .SectionDescription {
         float: left;
@@ -210,12 +209,16 @@ h2 {
       }
       .containerImage {
         width: 100%;
-        height: fit-content;
+        max-height: 45em;
+        height: auto;
+        overflow: hidden;
         align-self: center;
         border: 10px solid var(--clr-normal-white);
         border-radius: 10px;
         img {
+          aspect-ratio: 9/16;
           width: 100%;
+          height: 100%;
         }
       }
     }

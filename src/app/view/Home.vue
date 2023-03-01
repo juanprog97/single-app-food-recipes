@@ -52,9 +52,9 @@
       <router-view v-slot="{ Component }">
         <transition name="moveUp" mode="out-in">
           <component :is="Component" :key="$route.path">
-            <Suspense>
+            <!-- <Suspense>
               <template #fallback> <SpinnerLoading /> </template>
-            </Suspense>
+            </Suspense> -->
           </component>
         </transition>
       </router-view>

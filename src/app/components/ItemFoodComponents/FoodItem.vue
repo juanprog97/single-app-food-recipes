@@ -111,9 +111,9 @@ export default defineComponent({
   },
   computed: {
     isFavorite() {
-      return this.foodAction.getListAllDictionary.hasOwnProperty(
-        this.dataFood.id
-      );
+      return this.foodAction.getListAllDictionary
+        ? this.foodAction.getListAllDictionary.hasOwnProperty(this.dataFood.id)
+        : false;
     },
   },
 });
