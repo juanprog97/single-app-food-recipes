@@ -11,22 +11,28 @@ It is a simple application that allows the user to log in to a simple food recip
 ## Captures
 
 #### Login Page
-![plot](/public/logincA.png)
+
+![login](/public/logincA.png)
+
 #### Home Page
-![plot](/public/SuggC.png)
+
+![home](/public/SuggC.png)
+
 #### Favorite Page
-![plot](/public/FaC.png)
+
+![favorite](/public/FaC.png)
 
 #### Details Page
-![plot](/public/DetC.png)
+
+![details](/public/DetC.png)
 
 #### Mini Paint Shape
-![plot](/public/PaintC.png)
 
+![miniap](/public/PaintC.png)
 
 ## Instructions
 
-How to install of Project 
+How to install of Project
 
 ```console
 cd single-meal-app-web
@@ -35,7 +41,3 @@ npm run test /*This is for execute Unit Test */
 npm run dev /*This is for run Project Dev Mode */
 
 ```
-
-
-
-
