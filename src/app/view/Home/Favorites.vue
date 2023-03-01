@@ -23,7 +23,7 @@ export default defineComponent({
     ListFood,
     SpinnerLoading,
   },
-  async setup() {
+  setup() {
     const foodAction = getModule(FoodStore, store);
     return { foodAction };
   },

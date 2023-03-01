@@ -2,7 +2,7 @@
   <div class="Container">
     <div class="Container_Logo_Side">
       <div class="Container_Img_logo">
-        <img id="LogoPage" src="logo.png" />
+        <img id="LogoPage" src="/logo.png" />
         <h1 class="no-select-text">Food world</h1>
       </div>
       <p class="Description_Logo no-select-text">
@@ -29,7 +29,7 @@
             type="text"
           />
           <ErrorMessage
-            class="Error_Message_Field"
+            class="Error_Message_Field no-select-text"
             id="Error_Message_Field_Email"
             name="email"
           />
@@ -45,7 +45,7 @@
             type="password"
           />
           <ErrorMessage
-            class="Error_Message_Field"
+            class="Error_Message_Field no-select-text"
             id="Error_Message_Field_Password"
             name="password"
           />

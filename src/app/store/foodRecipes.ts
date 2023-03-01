@@ -81,8 +81,8 @@ export class FoodStore extends VuexModule implements FoodState {
   @Mutation
   AddFavoriteStore(data: FoodRecipe) {
     //Add Favorite Food
-    const keya = data.id;
-    this.listFavoriteFood[keya] = data;
+    const keya = data?.id;
+    this.listFavoriteFood = { ...this.listFavoriteFood, [keya]: data };
   }
   @Mutation
   setListFavoriteFoodRecipes(data: TypeWithKey<FoodRecipe>) {
