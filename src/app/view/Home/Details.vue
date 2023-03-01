@@ -149,14 +149,16 @@ h2 {
         }
         .SectionIngredientPreparation {
           display: grid;
-          grid-template-columns: 0.5fr 1fr;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 1em;
           .InstIngredient {
             .ListIngredient {
               margin-left: 2em;
               ul {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 list-style-type: circle !important;
-
+                gap: 1.5em;
                 li {
                   list-style: circle !important;
                   .ItemIngredient {
@@ -171,6 +173,7 @@ h2 {
           }
           .InstPreparation {
             text-align: center;
+
             ol {
               li {
                 list-style: auto;

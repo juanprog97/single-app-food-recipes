@@ -1,7 +1,15 @@
 <template>
   <div class="ContainerFoodItem">
-    <div class="FoodRecipesImg">
-      <img :src="dataFood.image" alt="img-food-recipe" />
+    <div
+      class="FoodRecipesImg"
+      v-bind:data-state="isLoadingImage ? 'show' : 'hide'"
+    >
+      <img
+        v-show="isLoadImage"
+        :src="dataFood.image"
+        v-bind:onLoad="loadedImage"
+        alt="img-food-recipe"
+      />
     </div>
 
     <h2 class="TitleFood">{{ dataFood.name }}</h2>
@@ -87,10 +95,21 @@ export default defineComponent({
     const userEmail = userAction.userMail;
     return { foodAction, userAction, userEmail };
   },
+  mounted() {},
   props: {
     dataFood: { type: Object as PropType<FoodRecipe>, required: true },
   },
+  data() {
+    return {
+      isLoadImage: false,
+      isLoadingImage: true,
+    };
+  },
   methods: {
+    loadedImage() {
+      this.isLoadImage = true;
+      this.isLoadingImage = false;
+    },
     ActionFavoriteFoodRecipe() {
       this.isFavorite
         ? this.removeFavoriteFoodRecipe()
@@ -134,11 +153,46 @@ export default defineComponent({
   padding: 1em;
   border-radius: 10px;
   .FoodRecipesImg {
-    display: block;
+    display: flex;
     border: 5px solid white;
     border-radius: 10px;
+    min-width: 200px;
+    align-items: center;
+    position: relative;
+    min-height: 200px;
     width: fit-content;
     height: fit-content;
+    &[data-state="show"] {
+      &::after {
+        display: block;
+        content: "";
+        position: absolute;
+        inset: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        border-right: 10px solid var(--clr-normal-white);
+        border-left: 10px solid var(--clr-normal-white);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid var(--clr-normal-white);
+        animation: moveWheel 0.8s infinite linear;
+      }
+      @keyframes moveWheel {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+    }
+    &[data-state="hide"] {
+      &::after {
+        display: none;
+      }
+    }
   }
   .TitleFood {
     font-weight: bold;
